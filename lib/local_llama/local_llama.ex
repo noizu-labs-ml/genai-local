@@ -139,7 +139,7 @@ defmodule GenAI.Provider.LocalLLama do
             x -> {:ok, List.to_string(x)}
           end
         :else ->
-          otp_app = Application.get_env(:genai, :local_llama)[:otp_app]
+          otp_app = Application.get_env(:genai_local, :local_llama)[:otp_app]
           case :code.priv_dir(otp_app) do
             x = {:error, _} -> x
             x -> {:ok, List.to_string(x)}
@@ -148,7 +148,6 @@ defmodule GenAI.Provider.LocalLLama do
       with {:ok, pd} <- priv_dir do
         p = pd <> "/" <> path
         if File.exists?(p) do
-
           with {:ok, mref} <- ExLLama.load_model(p) do
             %GenAI.ExternalModel{
               handle: UUID.uuid4(),
