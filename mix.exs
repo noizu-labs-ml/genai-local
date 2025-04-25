@@ -106,7 +106,8 @@ defmodule GenAILocal.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:sweet_xml, "~> 0.7", only: :test},
       {:ex_llama, "~> 0.0.1"},
-      {:genai_core, "~> 0.1"}
+      #{:genai_core, "~> 0.1"}
+      {:genai_core, github: "noizu-labs-ml/genai-core", branch: "develop"},
     ]
   end
 end
