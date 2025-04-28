@@ -53,7 +53,7 @@ defmodule GenAI.Provider.LocalLLamaServer do
 
   defp do_get_model(state, from, handle, settings)
   defp do_get_model(state, _, handle, _settings) do
-    response = with {:ok, identifier} <- GenAI.ModelProtocol.identifier(handle) do
+    response = with {:ok, identifier} <- GenAI.ModelProtocol.handle(handle) do
       if live_model = state.local_models[identifier] do
         {:ok, live_model}
       else
