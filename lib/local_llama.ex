@@ -20,6 +20,7 @@ defmodule GenAI.Provider.LocalLLama do
   def do_run(session, context, options \\ nil) do
     with {:ok, {model = %{external: runner}, session}} <- GenAI.ThreadProtocol.effective_model(session, context, options),
          {:ok, model_encoder} <- GenAI.ModelProtocol.encoder(model),
+         {:ok, provider} <- GenAI.ModelProtocol.provider(model),
          {:ok, {effective, session}} <-
            effective_settings(model, session, context, options),
          {:ok, {tools, session}} <-
@@ -30,17 +31,8 @@ defmodule GenAI.Provider.LocalLLama do
       with {:ok, {req_body, session}} <-
              request_body(model, messages, tools, effective, session, context, options)
         do
-        
-        with {:ok, response = %{id: id, model: _, seed: _seed, choices: choices, usage: usage}} <- ExLLama.chat_completion(runner, messages, effective.settings),
-             {:ok, completion} <- model_encoder.completion_response(
-               response,
-               model,
-               effective,
-               session,
-               context,
-               options
-             ) do
-          {:ok, {completion, session}}
+        with {:ok, completion = %GenAI.ChatCompletion{}} <- ExLLama.chat_completion(runner, messages, effective.settings) do
+          {:ok, {%GenAI.ChatCompletion{completion| provider: provider}, session}}
         end
       end
     end

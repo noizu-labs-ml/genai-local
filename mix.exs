@@ -7,7 +7,7 @@ defmodule GenAILocal.MixProject do
       name: "GenAI local model extension",
       description: description(),
       package: package(),
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -105,9 +105,9 @@ defmodule GenAILocal.MixProject do
       {:mimic, "~> 1.0.0", only: :test},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:sweet_xml, "~> 0.7", only: :test},
-      {:ex_llama, "~> 0.0.1"},
+      {:ex_llama, "~> 0.1.0"},
       #{:genai_core, "~> 0.1"}
-      {:genai_core, github: "noizu-labs-ml/genai-core", branch: "develop"},
+      #{:genai_core, github: "noizu-labs-ml/genai-core", branch: "develop"},
     ]
   end
 end
