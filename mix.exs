@@ -55,6 +55,7 @@ defmodule GenAILocal.MixProject do
         "LICENSE",
         "mix.exs",
         "README.md",
+        "CHANGELOG.md",
         "TODO.md",
       ]
     ]
